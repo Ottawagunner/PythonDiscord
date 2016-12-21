@@ -4,7 +4,8 @@ import random
 
 token = ''
 client = discord.Client()
-
+def is_me(m):
+    return m.author == client.user
 @client.event
 async def on_ready():
     print('Logged in as')
@@ -41,5 +42,9 @@ async def on_message(message):
         else:
             coin = 'Tails'
         await client.send_message(message.channel, coin)
+        
+    if message.content.startswith('!botclean'):
+        deleted = await client.purge_from(channel, limit=100, check=is_me)
+        await client.send_message(channel, 'Deleted {} message(s)'.format(len(deleted)))
         
 client.run(token)

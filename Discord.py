@@ -44,7 +44,7 @@ async def on_message(message):
         await client.send_message(message.channel, coin)
         
     if message.content.startswith('!botclean'):
-        deleted = await client.purge_from(channel, limit=100, check=is_me)
+        deleted = await client.purge_from(message.channel, limit=100, check=is_me)
         await client.send_message(channel, 'Deleted {} message(s)'.format(len(deleted)))
         
 client.run(token)

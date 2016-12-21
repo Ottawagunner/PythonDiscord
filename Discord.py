@@ -1,11 +1,15 @@
 import discord
 import asyncio
 import random
+import requests
+import json
 
-token = ''
+token = 'MjYxMTU3ODkxMTI4NDI2NDk3.CzxAVA.J527zyVIjfmAVNU0_RFaXKe2zYU'
 client = discord.Client()
+
 def is_me(m):
     return m.author == client.user
+
 @client.event
 async def on_ready():
     print('Logged in as')
@@ -30,11 +34,11 @@ async def on_message(message):
 
     if message.content.startswith('ping'):
         await client.send_message(message.channel, 'pong')
-        
+
     if message.content.startswith('!rolld20'):
         roll = random.randint(1,20)
         await client.send_message(message.channel, 'You rolled a {}'.format(roll))
-
+    
     if message.content.startswith('!flipcoin'):
         roll = random.randint(1,2)
         if roll == 1:
@@ -42,9 +46,15 @@ async def on_message(message):
         else:
             coin = 'Tails'
         await client.send_message(message.channel, coin)
-        
+
     if message.content.startswith('!botclean'):
         deleted = await client.purge_from(message.channel, limit=100, check=is_me)
-        await client.send_message(channel, 'Deleted {} message(s)'.format(len(deleted)))
-        
+        await client.send_message(message.channel, 'Deleted {} message(s)'.format(len(deleted)))
+
+    if message.content.startswith('!joke'):
+
+        r = requests.get('http://tambal.azurewebsites.net/joke/random')        
+        await client.send_message(message.channel, r.json()['joke'])
+
+
 client.run(token)

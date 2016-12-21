@@ -1,5 +1,6 @@
 import discord
 import asyncio
+import random
 
 token = ''
 client = discord.Client()
@@ -28,8 +29,17 @@ async def on_message(message):
 
     if message.content.startswith('ping'):
         await client.send_message(message.channel, 'pong')
+        
     if message.content.startswith('!rolld20'):
         roll = random.randint(1,20)
         await client.send_message(message.channel, 'You rolled a {}'.format(roll))
 
+    if message.content.startswith('!flipcoin'):
+        roll = random.randint(1,2)
+        if roll == 1:
+            coin = 'Heads'
+        else:
+            coin = 'Tails'
+        await client.send_message(message.channel, coin)
+        
 client.run(token)

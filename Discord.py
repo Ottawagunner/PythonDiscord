@@ -28,5 +28,8 @@ async def on_message(message):
 
     if message.content.startswith('ping'):
         await client.send_message(message.channel, 'pong')
+    if message.content.startswith('!rolld20'):
+        roll = random.randint(1,20)
+        await client.send_message(message.channel, 'You rolled a {}'.format(roll))
 
 client.run(token)

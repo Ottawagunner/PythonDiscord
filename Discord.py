@@ -12,7 +12,7 @@ pollYes = 0
 pollNo = 0
 pollResult = ""
 
-token = 'MjYxMTU3ODkxMTI4NDI2NDk3.CzxAVA.J527zyVIjfmAVNU0_RFaXKe2zYU'
+token = ''
             
 with open("memelist.txt","r") as f:
     Memes = f.read().splitlines()
